@@ -99,6 +99,3 @@ yarn-debug.log*
 !/storage/.keep
 
 # End of https://www.gitignore.io/api/osx,rails
-
-# Ignore master key for decrypting credentials and more.
-/config/master.key
