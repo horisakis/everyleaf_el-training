@@ -1,3 +1,4 @@
+FROM node:12.10 as node
 FROM ruby:2.6.4
 
 ENV LANG C.UTF-8
@@ -17,6 +18,14 @@ RUN wget https://github.com/progrium/entrykit/releases/download/v${ENTRYKIT_VERS
     && mv entrykit /bin/entrykit \
     && chmod +x /bin/entrykit \
     && entrykit --symlink
+
+ENV YARN_VERSION 1.17.3
+
+COPY --from=node /opt/yarn-v$YARN_VERSION /opt/yarn
+COPY --from=node /usr/local/bin/node /usr/local/bin/
+
+RUN ln -s /opt/yarn/bin/yarn /usr/local/bin/yarn \
+    && ln -s /opt/yarn/bin/yarnpkg /usr/local/bin/yarnpkg
 
 RUN mkdir /app
 
